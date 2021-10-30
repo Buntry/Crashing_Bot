@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.crashing_waves'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = "15"
 
 configurations {
     compileOnly {
@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'commons-io:commons-io:2.11.0'
     implementation 'org.javacord:javacord:3.3.2'
     implementation 'org.springframework.boot:spring-boot-starter'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -29,3 +30,4 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+targetCompatibility = JavaVersion.VERSION_15
