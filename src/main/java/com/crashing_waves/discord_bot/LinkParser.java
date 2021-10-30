@@ -12,7 +12,7 @@ import java.util.regex.*;
 
 public class LinkParser {
 
-
+    //Takes in a .json file and returns a usable JSONObject
     private JSONObject fileToJSON(File file){
         try {
             InputStream is = new FileInputStream(file);
@@ -25,6 +25,7 @@ public class LinkParser {
         }
     }
 
+    //Takes a valid link to a tik tok video and returns a link to its location in local storage
     private File tikTokParse(String url){
         //run the python command to get the url
         String command = "python ./src/main/python/TTAPI.py";
@@ -45,6 +46,7 @@ public class LinkParser {
          if (Pattern.matches(Tik_tok,url)){
              MessageBuilder message = new MessageBuilder().addAttachment(tikTokParse(url));
              try{
+                 //I may want to move these to a separate method later
                  File file = new File("./Media/Attributes.json");
                  JSONObject json = fileToJSON(file);
                  String Title = json.getString("Title");
@@ -64,6 +66,7 @@ public class LinkParser {
 
     }
 
+    //Checks if the URL is from Tik Tok returns Boolean
     public boolean isTikTokURL(String url){
         return Pattern.matches("https://[a-z]*.tiktok.com[^\s]*",url);
     }
