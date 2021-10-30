@@ -24,6 +24,8 @@ attr = {}
 attr["Title"] = video["itemInfo"]["itemStruct"]["desc"]
 attr["Author"] = video["itemInfo"]["itemStruct"]['author']['uniqueId']
 attr["pfp"] = video["itemInfo"]["itemStruct"]['author']['avatarThumb']
+attr['soundTitle'] = video["itemInfo"]["itemStruct"]['music']['title']
+attr['soundThumb'] = video["itemInfo"]["itemStruct"]['music']['coverThumb']
 
 # Below is if the method used if you have the full tiktok object
 video_bytes = api.get_video_by_tiktok(video, custom_device_id=device_id)
@@ -31,5 +33,5 @@ video_bytes = api.get_video_by_tiktok(video, custom_device_id=device_id)
 with open("Media/video.mp4", "wb") as out:
     out.write(video_bytes)
 
-with open("Media/Attributes.json","w") as out:
+with open("Media/Attributes.json","w", encoding="utf-8") as out:
     out.write(str(attr))

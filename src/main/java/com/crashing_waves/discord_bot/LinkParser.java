@@ -53,9 +53,9 @@ public class LinkParser {
                  String Author = json.getString("Author");
                  String Pfp = json.getString("pfp");
                  EmbedBuilder embed = new EmbedBuilder()
-                         .setAuthor(Author)
+                         .setAuthor(Author,url,Pfp)
                          .setDescription(Title)
-                         .setImage(Pfp);
+                         .setFooter(json.getString("soundTitle"),json.getString("soundThumb"));
                  return message.addEmbed(embed);
              } catch(JSONException e ){
                  e.printStackTrace();
