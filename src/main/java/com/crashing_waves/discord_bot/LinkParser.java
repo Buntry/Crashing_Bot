@@ -13,6 +13,18 @@ import java.util.regex.*;
 public class LinkParser {
 
 
+    private JSONObject fileToJSON(File file){
+        try {
+            InputStream is = new FileInputStream(file);
+            String jsonTxt = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+            JSONObject json = new JSONObject(jsonTxt);
+            return json;
+        }catch (IOException | JSONException e){
+            e.printStackTrace();
+            return  new JSONObject();
+        }
+    }
+
     private File tikTokParse(String url){
         //run the python command to get the url
         String command = "python ./src/main/python/TTAPI.py";
@@ -27,16 +39,14 @@ public class LinkParser {
     }
 
     //This method's job is to decide which URL parser will recieve and parse the URL
-    public MessageBuilder parseLink(String url){
+    public MessageBuilder handleLink(String url){
          String Tik_tok = ("https://[a-z]*.tiktok.com[^\s]*");
 
          if (Pattern.matches(Tik_tok,url)){
              MessageBuilder message = new MessageBuilder().addAttachment(tikTokParse(url));
              try{
                  File file = new File("./Media/Attributes.json");
-                 InputStream is = new FileInputStream(file);
-                 String jsonTxt = new String(is.readAllBytes(), StandardCharsets.UTF_8);
-                 JSONObject json = new JSONObject(jsonTxt);
+                 JSONObject json = fileToJSON(file);
                  String Title = json.getString("Title");
                  String Author = json.getString("Author");
                  String Pfp = json.getString("pfp");
@@ -45,7 +55,7 @@ public class LinkParser {
                          .setDescription(Title)
                          .setImage(Pfp);
                  return message.addEmbed(embed);
-             } catch(JSONException | IOException e ){
+             } catch(JSONException e ){
                  e.printStackTrace();
              }
              return message;

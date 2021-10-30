@@ -4,7 +4,6 @@ import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.MessageBuilder;
-import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,7 +36,7 @@ public class DiscordBotApplication {
                         .setContent("Working...")
                         .send(event.getChannel())
                         .join();
-                parser.parseLink(event.getMessageContent()).send(event.getChannel());
+                parser.handleLink(event.getMessageContent()).send(event.getChannel());
                 event.deleteMessage();
                 test.delete();
             }
