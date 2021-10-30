@@ -54,7 +54,7 @@ public class LinkParser {
 
     }
 
-    public boolean isWebURL(String url){
-        return Pattern.matches("https://[^\s]*",url);
+    public boolean isTikTokURL(String url){
+        return Pattern.matches("https://[a-z]*.tiktok.com[^\s]*",url);
     }
 }

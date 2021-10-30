@@ -32,7 +32,7 @@ public class DiscordBotApplication {
         DiscordApi api = new DiscordApiBuilder().setToken(token).setAllNonPrivilegedIntents().login().join();
         LinkParser parser = new LinkParser();
         api.addMessageCreateListener(event -> {
-            if (parser.isWebURL(event.getMessageContent())){
+            if (parser.isTikTokURL(event.getMessageContent())){
                 Message test = new MessageBuilder()
                         .setContent("Working...")
                         .send(event.getChannel())
